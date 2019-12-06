@@ -8,9 +8,29 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+  filter: category_to_compare{
+    type: string
+    suggest_explore: inventory_items
+    suggest_dimension: products.category
+  }
+
+  dimension: category_comparator {
+    type: string
+    sql:  CASE
+          WHEN {% condition category_to_compare %} ${category} {% endcondition %}
+          THEN ${category}
+          ELSE 'All Other Categories'
+          END;;
+  }
+
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    link: {
+      label: "Google"
+      url: "http://www.Google.com/searchq={{ value }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
   }
 
   dimension: category {

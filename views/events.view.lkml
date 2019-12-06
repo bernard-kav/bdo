@@ -1,4 +1,6 @@
+include: "geography.view.lkml"
 view: events {
+  extends: [geography]
   sql_table_name: public.events ;;
   drill_fields: [id]
 
@@ -11,17 +13,6 @@ view: events {
   dimension: browser {
     type: string
     sql: ${TABLE}.browser ;;
-  }
-
-  dimension: city {
-    type: string
-    sql: ${TABLE}.city ;;
-  }
-
-  dimension: country {
-    type: string
-    map_layer_name: countries
-    sql: ${TABLE}.country ;;
   }
 
   dimension_group: created {
@@ -48,16 +39,6 @@ view: events {
     sql: ${TABLE}.ip_address ;;
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
-
   dimension: os {
     type: string
     sql: ${TABLE}.os ;;
@@ -71,11 +52,6 @@ view: events {
   dimension: session_id {
     type: string
     sql: ${TABLE}.session_id ;;
-  }
-
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
   }
 
   dimension: traffic_source {
